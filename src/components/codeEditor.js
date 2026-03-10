@@ -7,6 +7,8 @@
  * eller `expectedOutput`.
  */
 
+import { t } from '../i18n.js';
+
 export default class CodeEditorExercise {
     /**
      * Renderar en enkel kodeditorövning.
@@ -78,7 +80,7 @@ export default class CodeEditorExercise {
 
         const runBtn = document.createElement('button');
         runBtn.className = 'btn-primary';
-        runBtn.innerHTML = '▶ Kontrollera kod';
+        runBtn.innerHTML = t('exercise.checkCode');
 
         const feedbackEl = document.createElement('div');
         feedbackEl.className = 'feedback-message';
@@ -88,18 +90,18 @@ export default class CodeEditorExercise {
         runBtn.addEventListener('click', () => {
             const code = textarea.value.trim();
             let isCorrect = true;
-            let errorMsg = "Koden verkar inte stämma överens med uppgiften.";
+            let errorMsg = t('exercise.missing');
 
             // Valideringslogik
             if (!code) {
                 isCorrect = false;
-                errorMsg = "Du måste skriva lite kod först!";
+                errorMsg = t('exercise.writeCode');
             } else if (data.expectedTokens && data.expectedTokens.length > 0) {
                 // Kolla så att strängen innehåller specifika tokens
                 for (const token of data.expectedTokens) {
                     if (!code.includes(token)) {
                         isCorrect = false;
-                        errorMsg = `Du verkar sakna: <code>${token}</code>`;
+                        errorMsg = `${t('exercise.missing')} <code>${token}</code>`;
                         break;
                     }
                 }
@@ -111,13 +113,13 @@ export default class CodeEditorExercise {
             if (isCorrect) {
                 textarea.style.borderColor = 'var(--accent-success)';
                 feedbackEl.className = 'feedback-message success';
-                feedbackEl.innerHTML = `<strong>🟢 Rätt!</strong> ${data.successMsg || 'Bra kodat!'}`;
+                feedbackEl.innerHTML = `<strong>${t('exercise.correct')}</strong> ${data.successMsg || t('exercise.goodCode')}`;
                 feedbackEl.style.display = 'block';
                 if (onComplete) onComplete(true);
             } else {
                 textarea.style.borderColor = 'var(--accent-error)';
                 feedbackEl.className = 'feedback-message error';
-                feedbackEl.innerHTML = `<strong>🔴 Fel.</strong> ${errorMsg}`;
+                feedbackEl.innerHTML = `<strong>${t('exercise.wrong')}</strong> ${errorMsg}`;
                 feedbackEl.style.display = 'block';
 
                 // Mikro-animation på knappen för att indikera fel

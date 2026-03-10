@@ -7,6 +7,7 @@
  */
 
 import Exercise from './exercise.js';
+import { t } from '../i18n.js';
 
 export default class LessonRenderer {
     constructor(router, storage) {
@@ -29,7 +30,7 @@ export default class LessonRenderer {
         headerCard.className = 'lesson-card';
         headerCard.innerHTML = `
       <div style="color: var(--text-muted); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: var(--spacing-sm);">
-        Sektion ${section.id}: ${section.title}
+        ${t('nav.section')} ${section.id}: ${section.title}
       </div>
       <h1 style="color: var(--accent-primary); margin-bottom: 0;">${lesson.id}. ${lesson.title}</h1>
     `;
@@ -71,7 +72,7 @@ export default class LessonRenderer {
 
         // Föregående knapp
         const prevBtn = document.createElement('button');
-        prevBtn.textContent = '← Föregående';
+        prevBtn.textContent = t('lesson.prev');
         if (hasPrev) {
             prevBtn.className = 'option-btn';
             prevBtn.style.width = 'auto';
@@ -86,13 +87,13 @@ export default class LessonRenderer {
         nextBtn.className = 'btn-primary';
 
         if (hasNext) {
-            nextBtn.textContent = 'Nästa Lektion →';
+            nextBtn.textContent = t('lesson.next');
             nextBtn.onclick = () => {
                 this.storage.markLessonComplete(section.id, lesson.id);
                 window.location.hash = `#section/${section.id}/lesson/${section.lessons[lessonIndex + 1].id}`;
             };
         } else {
-            nextBtn.textContent = 'Markera klar & Gå till Prov →';
+            nextBtn.textContent = t('lesson.finishAndTest');
             nextBtn.style.background = 'var(--accent-secondary)';
             nextBtn.onclick = () => {
                 this.storage.markLessonComplete(section.id, lesson.id);

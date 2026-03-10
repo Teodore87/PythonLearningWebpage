@@ -6,6 +6,8 @@
  * Särskilt bra för att träna upp förmågan att läsa felmeddelanden (Exceptions).
  */
 
+import { t } from '../i18n.js';
+
 export default class DebugExercise {
     /**
      * Renderar en felsökningsövning (debug).
@@ -28,7 +30,7 @@ export default class DebugExercise {
         label.style.fontSize = '0.8rem';
         label.style.fontWeight = '800';
         label.style.letterSpacing = '1px';
-        label.textContent = 'FELSÖKNING';
+        label.textContent = t('debug.label');
         container.appendChild(label);
 
         const questionEl = document.createElement('h3');
@@ -61,7 +63,7 @@ export default class DebugExercise {
         }
 
         const instrEl = document.createElement('p');
-        instrEl.textContent = 'Vilket är det rätta sättet att fixa koden?';
+        instrEl.textContent = t('debug.fixPrompt');
         instrEl.style.fontWeight = '600';
         container.appendChild(instrEl);
 
@@ -89,14 +91,14 @@ export default class DebugExercise {
                 if (index === data.correctIndex) {
                     btn.classList.add('correct');
                     feedbackEl.className = 'feedback-message success';
-                    feedbackEl.innerHTML = `<strong>🟢 Bug Fixad!</strong> ${data.explanation || ''}`;
+                    feedbackEl.innerHTML = `<strong>${t('debug.bugFixed')}</strong> ${data.explanation || ''}`;
                     isAnsweredCorrectly = true;
 
                     if (onComplete) onComplete(true);
                 } else {
                     btn.classList.add('wrong');
                     feedbackEl.className = 'feedback-message error';
-                    feedbackEl.innerHTML = `<strong>🔴 Fortfarande Fel.</strong> Försök igen.`;
+                    feedbackEl.innerHTML = `<strong>${t('debug.stillWrong')}</strong> ${t('exercise.tryAgain')}`;
                 }
             });
             optionsList.appendChild(btn);

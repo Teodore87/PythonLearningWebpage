@@ -3,9 +3,11 @@
  * 
  * Renderar navigationsmenyn dynamiskt baserat på sections.js
  * och låser sektioner utifrån användarens localStorage-framsteg.
+ * Innehåller även språkväxlingsknapp (svenska/engelska).
  */
 
 import { sections } from '../data/sections.js';
+import { t, toggleLanguage } from '../i18n.js';
 
 export default class Sidebar {
     constructor(storage, router) {
@@ -49,7 +51,7 @@ export default class Sidebar {
 
             // Ikon för låst/upplåst status
             const icon = isUnlocked ? '📖' : '🔒';
-            sectionLink.innerHTML = `<strong>${icon} Sektion ${section.id}:</strong> ${section.title}`;
+            sectionLink.innerHTML = `<strong>${icon} ${t('nav.section')} ${section.id}:</strong> ${section.title}`;
 
             if (!isUnlocked) {
                 sectionLink.addEventListener('click', (e) => {
@@ -94,7 +96,7 @@ export default class Sidebar {
                 testLink.style.marginTop = '0.5rem';
                 testLink.style.borderLeft = isCurrentTest ? '2px solid var(--accent-secondary)' : '2px solid transparent';
                 testLink.style.color = 'var(--accent-secondary)';
-                testLink.innerHTML = `<strong>🎯 Sektionsprov</strong>`;
+                testLink.innerHTML = `<strong>${t('nav.sectionTest')}</strong>`;
                 lessonsList.appendChild(testLink);
 
                 sectionGroup.appendChild(lessonsList);
@@ -102,5 +104,57 @@ export default class Sidebar {
 
             this.container.appendChild(sectionGroup);
         });
+
+        // Lägg till resurslänk längst ner
+        const resourcesGroup = document.createElement('div');
+        resourcesGroup.style.marginTop = 'var(--spacing-lg)';
+        resourcesGroup.style.paddingTop = 'var(--spacing-md)';
+        resourcesGroup.style.borderTop = '1px solid rgba(255,255,255,0.05)';
+
+        const resourcesLink = document.createElement('a');
+        resourcesLink.href = '#resources';
+        const isResourcesActive = currentHash === '#resources';
+        resourcesLink.className = `nav-item ${isResourcesActive ? 'active' : ''}`;
+        resourcesLink.innerHTML = `<strong>📚 ${t('resources.title')}</strong>`;
+        resourcesGroup.appendChild(resourcesLink);
+
+        this.container.appendChild(resourcesGroup);
+
+        // Lägg till språkväxlingsknapp längst ner
+        const langGroup = document.createElement('div');
+        langGroup.style.padding = 'var(--spacing-md) var(--spacing-lg)';
+        langGroup.style.marginTop = 'var(--spacing-sm)';
+
+        const langBtn = document.createElement('button');
+        langBtn.className = 'lang-switcher-btn';
+        langBtn.textContent = t('lang.switch');
+        langBtn.style.width = '100%';
+        langBtn.style.padding = '0.5rem';
+        langBtn.style.fontSize = '0.85rem';
+        langBtn.style.background = 'rgba(255,255,255,0.05)';
+        langBtn.style.border = '1px solid rgba(255,255,255,0.1)';
+        langBtn.style.borderRadius = 'var(--border-radius-sm)';
+        langBtn.style.color = 'var(--text-muted)';
+        langBtn.style.cursor = 'pointer';
+        langBtn.style.transition = 'all 0.2s ease';
+
+        langBtn.addEventListener('mouseenter', () => {
+            langBtn.style.background = 'rgba(255,255,255,0.1)';
+            langBtn.style.color = 'var(--text-heading)';
+        });
+        langBtn.addEventListener('mouseleave', () => {
+            langBtn.style.background = 'rgba(255,255,255,0.05)';
+            langBtn.style.color = 'var(--text-muted)';
+        });
+
+        langBtn.addEventListener('click', () => {
+            toggleLanguage();
+            // Rendera om sidebar + aktiv route för att applicera det nya språket
+            this.render();
+            this.router.handleRoute();
+        });
+
+        langGroup.appendChild(langBtn);
+        this.container.appendChild(langGroup);
     }
 }

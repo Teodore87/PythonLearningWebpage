@@ -60,6 +60,23 @@ class App {
                 overlay.classList.remove('active');
             }
         });
+
+        // --- SIDEBAR COLLAPSE/EXPAND (fungerar på alla skärmstorlekar) ---
+        const collapseBtn = document.getElementById('sidebar-collapse-btn');
+        if (collapseBtn && sidebar) {
+            // Återställ sparad status från localStorage
+            const isCollapsed = localStorage.getItem('pylearn_sidebar_collapsed') === 'true';
+            if (isCollapsed) {
+                sidebar.classList.add('collapsed');
+                document.body.classList.add('sidebar-collapsed');
+            }
+
+            collapseBtn.addEventListener('click', () => {
+                const nowCollapsed = sidebar.classList.toggle('collapsed');
+                document.body.classList.toggle('sidebar-collapsed', nowCollapsed);
+                localStorage.setItem('pylearn_sidebar_collapsed', nowCollapsed);
+            });
+        }
     }
 }
 

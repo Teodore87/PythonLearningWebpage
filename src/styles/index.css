@@ -14,17 +14,21 @@
   --bg-surface: #1a1d2d;
   --bg-surface-hover: #24283b;
   --bg-card: #1f2335;
-  
+
   --text-main: #c0caf5;
   --text-muted: #7aa2f7;
   --text-heading: #f8f8f2;
-  
+
   /* Accentfärger */
-  --accent-primary: #7aa2f7; /* Lugn men uppmärksamhetsfångande blå */
-  --accent-secondary: #bb9af7; /* Lila för prov/speciella element */
-  --accent-success: #9ece6a; /* Grön för rätt svar/framsteg */
-  --accent-error: #f7768e; /* Röd för fel/varningar */
-  --accent-warning: #e0af68; 
+  --accent-primary: #7aa2f7;
+  /* Lugn men uppmärksamhetsfångande blå */
+  --accent-secondary: #bb9af7;
+  /* Lila för prov/speciella element */
+  --accent-success: #9ece6a;
+  /* Grön för rätt svar/framsteg */
+  --accent-error: #f7768e;
+  /* Röd för fel/varningar */
+  --accent-warning: #e0af68;
 
   /* Layout och Spacing */
   --sidebar-width: 320px;
@@ -36,7 +40,7 @@
   --spacing-xl: 3rem;
   --border-radius: 12px;
   --border-radius-sm: 6px;
-  
+
   /* Typografi */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
@@ -55,23 +59,39 @@ body {
   color: var(--text-main);
   line-height: 1.6;
   font-size: 16px;
-  overflow-x: hidden; /* Förhindra horisontell scroll */
+  overflow-x: hidden;
+  /* Förhindra horisontell scroll */
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: var(--text-heading);
   line-height: 1.2;
   margin-bottom: var(--spacing-md);
   font-weight: 700;
 }
 
-h1 { font-size: 2.5rem; letter-spacing: -0.02em; }
-h2 { font-size: 2rem; }
-h3 { font-size: 1.5rem; }
+h1 {
+  font-size: 2.5rem;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
 
 p {
   margin-bottom: var(--spacing-lg);
-  font-size: 1.1rem; /* Lite större text för läsbarhet */
+  font-size: 1.1rem;
+  /* Lite större text för läsbarhet */
   max-width: 800px;
 }
 
@@ -120,7 +140,79 @@ button:active {
   display: flex;
   flex-direction: column;
   z-index: 100;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Sidebar header layout med collapse-knapp */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-lg) var(--spacing-lg);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Collapse-knapp (synlig på alla storlekar) */
+.sidebar-collapse-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  padding: 0;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.sidebar-collapse-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-heading);
+  transform: none;
+  box-shadow: none;
+}
+
+.collapse-icon {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+/* KOLLAPSAD SIDEBAR */
+#sidebar.collapsed {
+  width: 60px;
+}
+
+#sidebar.collapsed .logo-text,
+#sidebar.collapsed .sidebar-progress,
+#sidebar.collapsed .section-nav {
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+#sidebar.collapsed .sidebar-header {
+  justify-content: center;
+  padding: var(--spacing-lg) var(--spacing-sm);
+}
+
+#sidebar.collapsed .logo {
+  justify-content: center;
+  gap: 0;
+}
+
+#sidebar.collapsed .logo-text {
+  width: 0;
+  overflow: hidden;
+}
+
+#sidebar.collapsed .collapse-icon {
+  transform: rotate(180deg);
 }
 
 .main-content {
@@ -128,7 +220,12 @@ button:active {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  transition: margin-left 0.3s ease;
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Huvudinnehåll anpassas när sidebar är kollapsad */
+body.sidebar-collapsed .main-content {
+  margin-left: 60px;
 }
 
 .content-area {
@@ -139,10 +236,6 @@ button:active {
 }
 
 /* SIDEBAR KOMPONENTER */
-.sidebar-header {
-  padding: var(--spacing-lg) var(--spacing-lg);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
 
 .logo {
   display: flex;
@@ -196,11 +289,13 @@ button:active {
 .section-nav::-webkit-scrollbar {
   width: 6px;
 }
+
 .section-nav::-webkit-scrollbar-track {
   background: transparent;
 }
+
 .section-nav::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 3px;
 }
 
@@ -231,6 +326,7 @@ button:active {
   opacity: 0.4;
   cursor: not-allowed;
 }
+
 .nav-item.locked:hover {
   background-color: transparent;
   text-decoration: none;
@@ -248,7 +344,7 @@ button:active {
   width: 48px;
   height: 48px;
   padding: 0;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -278,22 +374,23 @@ button:active {
   .menu-toggle {
     display: flex;
   }
-  
+
   #sidebar {
     transform: translateX(-100%);
   }
-  
+
   #sidebar.open {
     transform: translateX(0);
   }
-  
+
   .main-content {
     margin-left: 0;
   }
-  
+
   .content-area {
     padding: var(--spacing-xl) var(--spacing-md);
-    padding-top: 80px; /* Plats för menuknappen */
+    padding-top: 80px;
+    /* Plats för menuknappen */
   }
 
   .sidebar-overlay.active {
@@ -310,13 +407,20 @@ button:active {
   padding: var(--spacing-lg);
   margin-bottom: var(--spacing-xl);
   border: 1px solid rgba(255, 255, 255, 0.03);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   animation: slideUp 0.5s ease backwards;
 }
 
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Kodblock */
@@ -403,15 +507,18 @@ p code {
   padding: var(--spacing-md);
   border-radius: var(--border-radius-sm);
   margin-top: var(--spacing-md);
-  display: none; /* Visas via JS */
+  display: none;
+  /* Visas via JS */
   font-weight: 500;
 }
+
 .feedback-message.success {
   display: block;
   background: rgba(158, 206, 106, 0.15);
   color: var(--accent-success);
   border-left: 4px solid var(--accent-success);
 }
+
 .feedback-message.error {
   display: block;
   background: rgba(247, 118, 142, 0.15);
@@ -432,9 +539,10 @@ p code {
   background: var(--accent-primary);
   color: var(--bg-main);
 }
+
 .btn-primary:disabled {
-  background: rgba(255,255,255,0.1);
-  color: rgba(255,255,255,0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.3);
   cursor: not-allowed;
   transform: none;
   box-shadow: none;

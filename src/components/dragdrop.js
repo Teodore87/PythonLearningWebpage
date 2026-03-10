@@ -5,6 +5,8 @@
  * Interaktivt och taktilt för bättre inlärning. Inbyggt med HTML5 Drag and Drop API.
  */
 
+import { t } from '../i18n.js';
+
 export default class DragDropExercise {
     /**
      * Renderar en dra-och-släpp-övning (matcha par).
@@ -35,7 +37,7 @@ export default class DragDropExercise {
         termBank.style.padding = 'var(--spacing-md)';
         termBank.style.background = 'rgba(0,0,0,0.2)';
         termBank.style.borderRadius = 'var(--border-radius-sm)';
-        termBank.innerHTML = '<h4 style="margin-bottom: var(--spacing-sm); color: var(--text-muted); font-size: 0.9em;">Dra dessa termer:</h4>';
+        termBank.innerHTML = `<h4 style="margin-bottom: var(--spacing-sm); color: var(--text-muted); font-size: 0.9em;">${t('dragdrop.dragThese')}</h4>`;
 
         // 2. Skapa målen (definitionerna)
         const targetArea = document.createElement('div');
@@ -53,7 +55,7 @@ export default class DragDropExercise {
         const feedbackEl = document.createElement('div');
         feedbackEl.className = 'feedback-message success';
         feedbackEl.style.display = 'none';
-        feedbackEl.innerHTML = `<strong>🟢 Helt rätt!</strong> Bra jobbat.`;
+        feedbackEl.innerHTML = `<strong>${t('dragdrop.allCorrect')}</strong> ${t('exercise.goodJob')}`;
 
         // Sätt upp Drag-API:et
         let draggedElement = null;

@@ -6,6 +6,8 @@
  * Anpassad för ADHD med omedelbar, tydlig visuell feedback.
  */
 
+import { t } from '../i18n.js';
+
 export default class Exercise {
     /**
      * Renderar en flervalsfråga.
@@ -35,8 +37,7 @@ export default class Exercise {
         data.options.forEach((option, index) => {
             const btn = document.createElement('button');
             btn.className = 'option-btn';
-            // Använd index för jämförelse med correctIndex
-            btn.innerHTML = `<strong>${String.fromCharCode(65 + index)}.</strong> ${option}`;
+            btn.textContent = option;
 
             btn.addEventListener('click', () => {
                 if (isAnsweredCorrectly) return; // Förhindra fler klick om redan rätt
@@ -49,14 +50,14 @@ export default class Exercise {
                 if (index === data.correctIndex) {
                     btn.classList.add('correct');
                     feedbackEl.className = 'feedback-message success';
-                    feedbackEl.innerHTML = `<strong>🟢 Rätt!</strong> ${data.explanation || 'Bra jobbat.'}`;
+                    feedbackEl.innerHTML = `<strong>${t('exercise.correct')}</strong> ${data.explanation || t('exercise.goodJob')}`;
                     isAnsweredCorrectly = true;
 
                     if (onComplete) onComplete(true);
                 } else {
                     btn.classList.add('wrong');
                     feedbackEl.className = 'feedback-message error';
-                    feedbackEl.innerHTML = `<strong>🔴 Fel.</strong> Försök igen.`;
+                    feedbackEl.innerHTML = `<strong>${t('exercise.wrong')}</strong> ${t('exercise.tryAgain')}`;
 
                     // Skakeffekt för felaktigt svar (mikro-animation)
                     btn.style.transform = 'translate(-5px, 0)';
