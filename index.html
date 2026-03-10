@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Interaktiv Python-lärplattform – lär dig Python steg för steg med övningar och prov.">
+    <title>PyLearn – Interaktiv Python-utbildning</title>
+
+    <!-- Google Fonts: Inter för ett modernt, lättläst typsnitt -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Huvudstilmall -->
+    <link rel="stylesheet" href="src/styles/index.css">
+</head>
+
+<body>
+    <!--
+    APPLIKATIONSSTRUKTUR:
+    Layouten består av tre delar:
+    1. Sidebar (vänster) - navigation med alla sektioner/lektioner
+    2. Main content (mitten) - lektionsinnehåll, övningar, prov
+    3. Overlay för mobilmeny
+  -->
+
+    <!-- Overlay som visas när sidofältet är öppet på mobil -->
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+    <!-- SIDEBAR: Visar alla sektioner och lektioner i en trädstruktur -->
+    <aside id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <!-- Logotyp och appnamn -->
+            <div class="logo">
+                <span class="logo-icon">🐍</span>
+                <span class="logo-text">PyLearn</span>
+            </div>
+        </div>
+
+        <!-- Framstegsöversikt – visar totalt genomförda sektioner -->
+        <div class="sidebar-progress">
+            <div class="progress-label">
+                <span>Total framsteg</span>
+                <span id="total-progress-text">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div id="total-progress-bar" class="progress-fill" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- Navigeringsmeny – fylls dynamiskt av JavaScript -->
+        <nav id="section-nav" class="section-nav">
+            <!-- Sektionerna renderas här av sidebar.js -->
+        </nav>
+    </aside>
+
+    <!-- HUVUDINNEHÅLL -->
+    <main id="main-content" class="main-content">
+        <!-- Mobilmeny-knapp (visas bara på små skärmar) -->
+        <button id="menu-toggle" class="menu-toggle" aria-label="Öppna meny">
+            <span></span><span></span><span></span>
+        </button>
+
+        <!-- Dynamiskt innehåll renderas här -->
+        <div id="content-area" class="content-area">
+            <!-- Startsida visas här av router.js -->
+        </div>
+    </main>
+
+    <!--
+    SKRIPTLADDNING:
+    Vi använder ES-moduler (type="module") för ren kodstruktur.
+    main.js är ingångspunkten som importerar alla andra moduler.
+  -->
+    <script type="module" src="src/main.js"></script>
+</body>
+
+</html>

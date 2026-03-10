@@ -1,0 +1,133 @@
+## **Grundtanke och koncept**
+
+- En undervisningsapplikation för Python (applikationen ska i framtiden vara kompatibel med andra programmeringsspråk) för mig som har ADHD där det ska finnas fakta och förklaringar samt frekventa övningar för att se om man har förstått det som man precis gått igenom. För varje avsnitt ska det komma ett prov man måste klara med 90% rätt på frågorna innan man kan gå vidare. Provet kan innehålla felsökning, egen kodning och att man ska koppla ihop rätt ord/fråga med rätt svar (drag-and-drop funktion).
+
+- Det ska finnas en visuell framstegsmätare som visar hur långt man har kommit i kursen.
+
+- Har du egna förslag och idéer för att göra applikationen mer engagerande och motiverande för mig som har ADHD? Tänk på saker som belöningar, gamification, visuella element, etc. Lägg gärna det som en egen del i planeringen så att jag kan se vad du har tänkt på innan vi kör vidare.
+
+## **Avsnitt 1. Grunder**
+
+- Syntax – introducerar dig till den grundläggande syntaxen i Python.
+- Variabler – förklarar vad variabler är och hur du skapar tydliga och meningsfulla variabelnamn.
+- Strängar – lär dig om strängdata och några grundläggande strängoperationer.
+- Tal – introducerar de vanligaste taltyperna, inklusive heltal och flyttal.
+- Booleska värden – förklarar den booleska datatypen samt falsy- och truthy-värden i Python.
+- Konstanter – visar hur du definierar konstanter i Python.
+- Kommentarer – lär dig hur du kan göra anteckningar i koden.
+- Typomvandling – lär dig att omvandla ett värde från en typ till en annan, till exempel från sträng till tal.
+
+## **Avsnitt 2. Operatorer**
+
+- Aritmetiska operatorer – lär dig använda aritmetiska operatorer för matematiska beräkningar.
+- Tilldelningsoperatorer – guide till hur du använder tilldelningsoperatorer för att ge variabler värden.
+- Jämförelseoperatorer – introducerar jämförelseoperatorer och hur de används för att jämföra två värden.
+- Logiska operatorer – visar hur du använder logiska operatorer för att kombinera flera villkor.
+
+## **Avsnitt 3. Kontrollflöde**
+
+- if…else-sats – lär dig köra ett kodblock baserat på ett villkor.
+- Ternär operator – introducerar Pythons ternära operator som gör koden mer kortfattad.
+- for-loop med range() – visar hur du kör ett kodblock ett bestämt antal gånger med for-loopen och funktionen range().
+- while – visar hur du kör ett kodblock så länge ett villkor är sant.
+- break – lär dig hur du avbryter en loop i förtid.
+- continue – visar hur du hoppar över aktuell iteration och fortsätter med nästa.
+- pass – visar hur du använder pass-satsen som en platshållare.
+
+## **Avsnitt 4. Funktioner**
+
+- Python-funktioner – introducerar funktioner i Python, hur du definierar dem och återanvänder dem i program.
+- Standardparametrar – visar hur du anger standardvärden för funktionsparametrar.
+- Nyckelordsargument – lär dig använda nyckelordsargument för att göra funktionsanrop mer tydliga.
+- Rekursiva funktioner – lär dig definiera rekursiva funktioner i Python.
+- Lambda-uttryck – visar hur du definierar anonyma funktioner i Python med lambda-uttryck.
+- Docstrings – visar hur du använder docstrings för att dokumentera en funktion.
+
+## **Avsnitt 5. Listor**
+
+- Lista – introducerar listtypen och hur du hanterar listelement effektivt.
+- Tuple – introducerar tuple, som är en lista som inte ändras under programmets körning.
+- Sortera en lista på plats – visar hur du använder metoden sort() för att sortera en lista på plats.
+- Sortera en lista – lär dig använda funktionen sorted() för att skapa en ny, sorterad lista utifrån den ursprungliga.
+- Skiva en lista – visar hur du använder list-slicing för att hantera listor effektivt.
+- Packa upp en lista – visar hur du kan tilldela listelement till flera variabler med list-unpacking.
+- Iterera över en lista – lär dig använda en for-loop för att iterera över en lista.
+- Hitta index för ett element – visar hur du hittar index för den första förekomsten av ett element.
+- Iterabler – förklarar iterabler och skillnaden mellan en iterabel och en iterator.
+- Transformera listelement med map() – visar hur du använder map()-funktionen för att transformera listelement.
+- Filtrera listelement med filter() – använder filter()-funktionen för att filtrera listelement.
+- Reducera listelement till ett värde med reduce() – använder reduce()-funktionen för att reducera listelement till ett enda värde.
+- List comprehensions – visar hur du skapar en ny lista baserat på en befintlig lista.
+
+## **Avsnitt 6. Ordböcker (dictionaries)**
+
+- Dictionary – introducerar dictionary-typen.
+- Dictionary comprehension – visar hur du kan skapa en ny dictionary från en befintlig med dictionary comprehensions.
+
+## **Avsnitt 7. Mängder (sets)**
+
+- Set – förklarar set-typen och visar hur du hanterar element effektivt.
+- Set comprehension – förklarar set comprehensions så att du kan skapa en ny mängd baserad på en befintlig, med mer kortfattad syntax.
+- Union av mängder – visar hur du tar unionen av två eller fler mängder med metoden union() eller operatorn |.
+- Snitt (intersection) av mängder – visar hur du tar snittet av två eller fler mängder med metoden intersection() eller operatorn &.
+- Differens av mängder – lär dig hitta skillnaden mellan mängder med metoden difference() eller differensoperatorn.
+- Symmetrisk differens – guide till hur du hittar symmetrisk differens med metoden symmetric_difference() eller operatorn ^.
+- Delmängd (subset) – kontrollerar om en mängd är en delmängd av en annan.
+- Övermängd (superset) – kontrollerar om en mängd är en övermängd av en annan.
+- Disjunkta mängder – kontrollerar om två mängder är disjunkta.
+
+## **Avsnitt 8. Felhantering (exceptions)**
+
+- try…except – visar hur du kan hantera undantag mer smidigt med try…except.
+- try…except…finally – lär dig köra ett kodblock oavsett om ett undantag uppstår eller inte.
+- try…except…else – förklarar hur du använder try…except…else för att styra programmets flöde när undantag uppstår.
+
+## **Avsnitt 9. Mer om Python-loopar**
+
+- for…else – förklarar for…else-satsen.
+- while…else – diskuterar while…else-satsen.
+- do…while (emulering) – visar hur du kan emulera en do…while-loop i Python med en while-loop.
+
+## **Avsnitt 10. Mer om Python-funktioner**
+
+- Packa upp tupler – visar hur du packar upp en tuple och tilldelar varje element till en egen variabel.
+- args-parametrar – lär dig skicka ett variabelt antal argument till en funktion.
+- kwargs-parametrar – visar hur du kan skicka ett variabelt antal nyckelordsargument till en funktion.
+- Partiella funktioner – lär dig definiera partiella funktioner.
+- Typanvisningar (type hints) – visar hur du lägger till typanvisningar för funktionsparametrar och hur du använder en statisk typkontroll (mypy).
+
+## **Avsnitt 11. Moduler och paket**
+
+- Moduler – introducerar Python-moduler och visar hur du skriver egna.
+- Sökväg för modulimport – förklarar hur sökvägen för moduler fungerar när du importerar.
+- **name**-variabeln – visar hur du använder variabeln **name** för att styra om en Python-fil körs som skript eller importeras som modul.
+- Paket – lär dig använda paket för att organisera moduler på ett mer strukturerat sätt.
+- Privata funktioner – definierar privata funktioner i Python.
+
+## **Avsnitt 12. Arbeta med filer**
+
+- Läsa från en textfil – lär dig läsa från en textfil.
+- Skriva till en textfil – visar hur du skriver till en textfil.
+- Skapa en ny textfil – tar dig igenom stegen för att skapa en ny textfil.
+- Kontrollera om en fil finns – visar hur du kontrollerar om en fil existerar.
+- Läsa CSV-filer – visar hur du läser data från en CSV-fil med modulen csv.
+- Skriva CSV-filer – lär dig skriva data till en CSV-fil.
+- Byta namn på en fil – guide till hur du byter namn på en fil.
+- Ta bort en fil – visar hur du tar bort en fil.
+
+## **Avsnitt 13. Arbetskataloger**
+
+- Arbeta med kataloger – visar vanliga funktioner för att arbeta med kataloger.
+- Lista filer i en katalog – listar filer i en katalog.
+
+## **Avsnitt 14. Strängar**
+
+- F-strängar – lär dig använda f-strängar för att formatera text på ett tydligt sätt.
+- Råa strängar (raw strings) – använder råa strängar för att hantera strängar som innehåller backslash.
+- Backslash – förklarar hur Python använder backslash () i strängliteraler.
+
+## **Avsnitt 15. Tredjepartspaket, PIP och virtuella miljöer**
+
+- Python Package Index (PyPI) och pip – introducerar Python Package Index och hur du installerar tredjepartspaket med pip.
+- Virtuella miljöer – hjälper dig förstå virtuella miljöer i Python och varför du behöver dem.
+- Installera pipenv på Windows – visar hur du installerar verktyget pipenv på Windows.
