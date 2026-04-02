@@ -1,5 +1,6 @@
 import LessonRenderer from './components/lesson.js';
 import SectionTest from './components/sectionTest.js';
+import ResourcesView from './components/resourcesView.js';
 import { getSectionMetadata, getLessonMetadata, getLessonContent, getSectionTest } from './data/provider.js';
 import { t } from './i18n.js';
 
@@ -160,74 +161,8 @@ export default class Router {
   }
 
   renderResources() {
-    const books = [
-      {
-        title: 'Automate the Boring Stuff with Python',
-        url: 'https://automatetheboringstuff.com/',
-        desc: 'Lär dig Python genom att automatisera vardagliga uppgifter. Perfekt för nybörjare.',
-        descEn: 'Learn Python by automating everyday tasks. Perfect for beginners.'
-      },
-      {
-        title: 'Think Python',
-        url: 'https://allendowney.github.io/ThinkPython/',
-        desc: 'En introduktion till programmering med Python, med fokus på att tänka som en programmerare.',
-        descEn: 'An introduction to programming with Python, focusing on thinking like a programmer.'
-      },
-      {
-        title: 'Python for Everybody',
-        url: 'https://www.py4e.com/book',
-        desc: 'En gratis bok som tar dig från noll till att kunna arbeta med data.',
-        descEn: 'A free book that takes you from zero to working with data.'
-      },
-      {
-        title: 'Dive Into Python 3',
-        url: 'https://diveintopython3.problemsolving.io/',
-        desc: 'En djupdykning i Python 3 med fokus på praktiska kodexempel.',
-        descEn: 'A deep dive into Python 3 with a focus on practical code examples.'
-      },
-      {
-        title: 'A Byte of Python',
-        url: 'https://python.swaroopch.com/',
-        desc: 'En kort, tydlig guide för dig som precis börjar med Python.',
-        descEn: 'A short, clear guide for those just starting with Python.'
-      },
-      {
-        title: "The Hitchhiker's Guide to Python",
-        url: 'https://docs.python-guide.org/',
-        desc: 'En expertguide till best practices, verktyg och projektstruktur för Pythonprojekt.',
-        descEn: 'An expert guide to best practices, tools and project structure for Python projects.'
-      }
-    ];
-
-    const lang = localStorage.getItem('pylearn_lang') || 'sv';
-
-    this.contentArea.innerHTML = `
-      <div class="lesson-card" style="animation: slideUp 0.4s ease;">
-        <h1 style="color: var(--accent-primary); margin-bottom: var(--spacing-sm);">${t('resources.title')}</h1>
-        <p style="color: var(--text-muted); font-size: 1.1rem;">${t('resources.subtitle')}</p>
-        
-        <div style="display: grid; gap: var(--spacing-lg); margin-top: var(--spacing-xl);">
-          ${books.map(book => `
-            <a href="${book.url}" target="_blank" rel="noopener noreferrer" class="resource-card" style="
-              display: block;
-              background: var(--bg-surface);
-              border: 1px solid rgba(255,255,255,0.08);
-              border-radius: var(--border-radius);
-              padding: var(--spacing-lg);
-              transition: all 0.2s ease;
-              text-decoration: none;
-            ">
-              <h3 style="color: var(--accent-primary); margin-bottom: var(--spacing-xs); font-size: 1.15rem;">📖 ${book.title}</h3>
-              <p style="color: var(--text-muted); margin-bottom: var(--spacing-xs); font-size: 0.95rem;">${lang === 'en' ? book.descEn : book.desc}</p>
-              <span style="color: var(--accent-secondary); font-size: 0.85rem;">${book.url}</span>
-            </a>
-          `).join('')}
-        </div>
-
-        <div style="margin-top: var(--spacing-xl); text-align: center;">
-          <a href="#home" class="option-btn" style="display: inline-block; width: auto;">${t('resources.goHome')}</a>
-        </div>
-      </div>
-    `;
+    const resourcesComponent = new ResourcesView();
+    this.contentArea.innerHTML = '';
+    this.contentArea.appendChild(resourcesComponent.render());
   }
 }

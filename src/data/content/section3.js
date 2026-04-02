@@ -156,52 +156,52 @@ export const section3Content = {
 
 export const section3Test = [
     {
-        question: "1. Vilket nyckelord används för att skapa en alternativ gren efter if i Python?",
+        question: "Vilket nyckelord används för att skapa en alternativ gren efter if i Python?",
         options: ["elseif", "elif", "else if", "otherwise"],
         correctIndex: 1
     },
     {
-        question: "2. Vad gör uttrycket: x = 'ja' if cond else 'nej' ?",
+        question: "Vad gör uttrycket: x = 'ja' if cond else 'nej' ?",
         options: ["En vanlig if-sats", "En ternär/inline if som tilldelar x beroende på cond", "En loop", "Ett funktionsanrop"],
         correctIndex: 1
     },
     {
-        question: "3. Vad ger list(range(2, 6))?",
+        question: "Vad ger list(range(2, 6))?",
         options: ["[2, 3, 4, 5]", "[2, 3, 4, 5, 6]", "[0,1,2,3,4,5]", "[2,4]"],
         correctIndex: 0
     },
     {
-        question: "4. Vilket av följande är en risk med while-loopar?",
+        question: "Vilket av följande är en risk med while-loopar?",
         options: ["De kan inte iterera över listor", "De kan skapa oändliga loopar om villkoret aldrig blir falskt", "De är alltid långsammare än for-loopar", "De kräver range()"],
         correctIndex: 1
     },
     {
-        question: "5. Vad gör break inuti en loop?",
+        question: "Vad gör break inuti en loop?",
         options: ["Hoppar till nästa iteration", "Avslutar loopen omedelbart", "Ignorerar villkoret", "Startar loopen om från början"],
         correctIndex: 1
     },
     {
-        question: "6. Vad händer när continue körs i en loop?",
+        question: "Vad händer när continue körs i en loop?",
         options: ["Loopen avslutas", "Resten av aktuell iteration hoppas över och nästa iteration börjar", "Programmet kraschar", "Variabeln nollställs"],
         correctIndex: 1
     },
     {
-        question: "7. Vad gör pass i Python?",
+        question: "Vad gör pass i Python?",
         options: ["Avslutar programmet", "Gör ingenting; en platshållare för ett tomt block", "Hoppar över en iteration", "Skriver ut text"],
         correctIndex: 1
     },
     {
-        question: "8. Vilket av följande är korrekt syntax för en enkel if-sats?",
+        question: "Vilket av följande är korrekt syntax för en enkel if-sats?",
         options: ["if x > 0 { print(x) }", "if x > 0: print(x)", "if (x > 0) then print(x)", "if x > 0 -> print(x)"],
         correctIndex: 1
     },
     {
-        question: "9. Vad skrivs ut av följande kod?\nfor i in range(4):\n    if i == 2:\n        break\n    print(i)",
+        question: "Vad skrivs ut av följande kod?\nfor i in range(4):\n    if i == 2:\n        break\n    print(i)",
         options: ["0 1 2 3", "0 1", "0 1 2", "1 2 3"],
         correctIndex: 1
     },
     {
-        question: "10. Vilket uttryck beskriver bäst skillnaden mellan for och while?",
+        question: "Vilket uttryck beskriver bäst skillnaden mellan for och while?",
         options: ["for används för villkor, while för sekvenser", "for upprepar tills ett villkor blir falskt, while itererar över en sekvens", "for itererar över en sekvens; while körs så länge ett villkor är sant", "Det finns ingen skillnad"],
         correctIndex: 2
     }

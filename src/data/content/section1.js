@@ -180,52 +180,52 @@ export const section1Content = {
 
 export const section1Test = [
     {
-        question: "1. Vad är korrekt syntax för att skapa en variabel med värdet 10?",
+        question: "Vad är korrekt syntax för att skapa en variabel med värdet 10?",
         options: ["10 = x", "int x = 10", "x = 10", "variabel x: 10"],
         correctIndex: 2
     },
     {
-        question: "2. Hur kommenterar man kod i Python?",
+        question: "Hur kommenterar man kod i Python?",
         options: ["// Kommentar", "/* Kommentar */", "# Kommentar", "@ Kommentar"], // <!-- --> Gav ett tomt alternativ
         correctIndex: 2
     },
     {
-        question: "3. Vilken datatyp är värdet 5.5?",
+        question: "Vilken datatyp är värdet 5.5?",
         options: ["int", "float", "str", "bool"],
         correctIndex: 1
     },
     {
-        question: "4. Vad används för att definiera var ett kodblock börjar och slutar?",
+        question: "Vad används för att definiera var ett kodblock börjar och slutar?",
         options: ["Parenteser", "Måsvingar {}", "Indentering", "Semikolon"],
         correctIndex: 2
     },
     {
-        question: "5. Om koden kör if (5 > 2): vad utvärderas (5 > 2) till?",
+        question: "Om koden kör if (5 > 2): vad utvärderas (5 > 2) till?",
         options: ["True", "False", "Yes", "Null"],
         correctIndex: 0
     },
     {
-        question: "6. Hur signalerar man att en variabel är en konstant i Python?",
+        question: "Hur signalerar man att en variabel är en konstant i Python?",
         options: ["Använder const", "Lägger till en stjärna framför", "SKRIVER_MED_VERSALER", "Sätter siffran till negativ"],
         correctIndex: 2
     },
     {
-        question: "7. Vad kallas textdatatypen i Python?",
+        question: "Vad kallas textdatatypen i Python?",
         options: ["Character (char)", "String (str)", "Text (txt)", "Word (wrd)"], // (str) gav nästan svaret då det stod ensamt
         correctIndex: 1
     },
     {
-        question: "8. Hur omvandlar du strängen \"25\" till ett räkningsbart nummer?",
+        question: "Hur omvandlar du strängen \"25\" till ett räkningsbart nummer?",
         options: ["int(\"25\")", "number(\"25\")", "\"25\".toInt()", "str(\"25\")"],
         correctIndex: 0
     },
     {
-        question: "9. Vilket variabelnamn är BÄST av följande?",
+        question: "Vilket variabelnamn är BÄST av följande?",
         options: ["a = 15", "x12 = 15", "antal_anvandare = 15", "var = 15"],
         correctIndex: 2
     },
     {
-        question: "10. Vad är resultatet av \"Hej\" + \"Då\" i Python?",
+        question: "Vad är resultatet av \"Hej\" + \"Då\" i Python?",
         options: ["HejDå", "Hej Då", "En crash", "Null"],
         correctIndex: 0
     }

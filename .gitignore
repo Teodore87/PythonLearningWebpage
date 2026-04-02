@@ -23,5 +23,6 @@ Desktop.ini
 .vscode/
 .idea/
 
-# Logs
+# Logs and plans
 npm-debug.log*
+*.txt

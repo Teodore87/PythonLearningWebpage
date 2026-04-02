@@ -14,6 +14,7 @@ const translations = {
         'nav.totalProgress': 'Total framsteg',
         'nav.section': 'Sektion',
         'nav.sectionTest': '🎯 Sektionsprov',
+        'nav.resources': '📚 Resurser',
 
         // Home
         'home.title': '🐍 PyLearn',
@@ -65,6 +66,8 @@ const translations = {
         'test.score': 'Du fick',
         'test.of': 'av',
         'test.yourAnswers': 'Dina svar:',
+        'test.yourAnswer': 'Ditt svar',
+        'test.correctAnswerLabel': 'Rätt svar',
         'test.correctAnswer': '✓ Rätt',
         'test.wrongAnswer': '✗ Fel',
         'test.retry': 'Gör om provet',
@@ -106,6 +109,7 @@ const translations = {
         'nav.totalProgress': 'Total progress',
         'nav.section': 'Section',
         'nav.sectionTest': '🎯 Section Test',
+        'nav.resources': '📚 Resources',
 
         // Home
         'home.title': '🐍 PyLearn',
@@ -157,6 +161,8 @@ const translations = {
         'test.score': 'You got',
         'test.of': 'of',
         'test.yourAnswers': 'Your answers:',
+        'test.yourAnswer': 'Your answer',
+        'test.correctAnswerLabel': 'Correct answer',
         'test.correctAnswer': '✓ Correct',
         'test.wrongAnswer': '✗ Wrong',
         'test.retry': 'Retake the test',

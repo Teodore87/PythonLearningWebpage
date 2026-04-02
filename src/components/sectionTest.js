@@ -191,12 +191,29 @@ export default class SectionTest {
         <h3 style="margin-bottom: var(--spacing-md);">${t('test.yourAnswers')}</h3>
         ${this.questions.map((q, idx) => {
       const isCorrect = this.answers[idx] === q.correctIndex;
+      const userAnswer = q.options[this.answers[idx]];
+      const correctAnswer = q.options[q.correctIndex];
+      
       return `
-            <div style="margin-bottom: var(--spacing-sm); padding-bottom: var(--spacing-sm); border-bottom: 1px solid rgba(255,255,255,0.05);">
-              <div style="color: ${isCorrect ? 'var(--accent-success)' : 'var(--accent-error)'}; font-weight: bold;">
-                ${idx + 1}. ${isCorrect ? t('test.correctAnswer') : t('test.wrongAnswer')}
+            <div style="margin-bottom: var(--spacing-md); padding-bottom: var(--spacing-md); border-bottom: 1px solid rgba(255,255,255,0.05);">
+              <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px;">
+                <span style="display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: ${isCorrect ? 'var(--accent-success)' : 'var(--accent-error)'}; color: var(--bg-main); font-size: 0.8rem; font-weight: bold;">
+                  ${isCorrect ? '✓' : '✗'}
+                </span>
+                <div style="color: var(--text-heading); font-weight: 600;">Fråga ${idx + 1}</div>
               </div>
-              <div style="color: var(--text-muted); font-size: 0.9rem;">${q.question}</div>
+              
+              <div style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 8px; margin-left: 34px;">${q.question}</div>
+              
+              <div style="margin-left: 34px; font-size: 0.9rem;">
+                <div style="color: ${isCorrect ? 'var(--accent-success)' : 'var(--accent-error)'}; opacity: 0.9;">
+                  <strong>${t('test.yourAnswer') || 'Ditt svar'}:</strong> ${userAnswer}
+                </div>
+                ${!isCorrect ? `
+                <div style="color: var(--accent-success); margin-top: 4px; opacity: 0.9;">
+                  <strong>${t('test.correctAnswerLabel') || 'Rätt svar'}:</strong> ${correctAnswer}
+                </div>` : ''}
+              </div>
             </div>
           `;
     }).join('')}

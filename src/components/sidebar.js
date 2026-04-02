@@ -115,7 +115,7 @@ export default class Sidebar {
         resourcesLink.href = '#resources';
         const isResourcesActive = currentHash === '#resources';
         resourcesLink.className = `nav-item ${isResourcesActive ? 'active' : ''}`;
-        resourcesLink.innerHTML = `<strong>📚 ${t('resources.title')}</strong>`;
+        resourcesLink.innerHTML = `<strong>${t('resources.title')}</strong>`;
         resourcesGroup.appendChild(resourcesLink);
 
         this.container.appendChild(resourcesGroup);

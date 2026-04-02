@@ -138,42 +138,42 @@ export const section2Content = {
 
 export const section2Test = [
     {
-        question: "1. Vad blir resultatet av 15 // 4?",
+        question: "Vad blir resultatet av 15 // 4?",
         options: ["3.75", "3", "4", "3.0"],
         correctIndex: 1
     },
     {
-        question: "2. Vilken operator ger resten vid division?",
+        question: "Vilken operator ger resten vid division?",
         options: ["//", "/", "%", "**"],
         correctIndex: 2
     },
     {
-        question: "3. Vad gör operatorn **?",
+        question: "Vad gör operatorn **?",
         options: ["Multiplikation", "Division", "Exponent (upphöjt till)", "Kommentar"],
         correctIndex: 2
     },
     {
-        question: "4. Om y = 10, vad blir y efter y += 5?",
+        question: "Om y = 10, vad blir y efter y += 5?",
         options: ["5", "10", "15", "50"],
         correctIndex: 2
     },
     {
-        question: "5. Vilken jämförelseoperator kontrollerar om två värden är lika?",
+        question: "Vilken jämförelseoperator kontrollerar om två värden är lika?",
         options: ["=", "==", "===", "!="],
         correctIndex: 1
     },
     {
-        question: "6. Vad ger uttrycket 10 > 10?",
+        question: "Vad ger uttrycket 10 > 10?",
         options: ["True", "False", "10", "Error"],
         correctIndex: 1
     },
     {
-        question: "7. Vad ger True or False?",
+        question: "Vad ger True or False?",
         options: ["True", "False", "Error", "None"],
         correctIndex: 0
     },
     {
-        question: "8. Vad gör operatorn not?",
+        question: "Vad gör operatorn not?",
         options: [
             "Jämför två värden",
             "Vänder True till False och tvärtom",
@@ -183,12 +183,12 @@ export const section2Test = [
         correctIndex: 1
     },
     {
-        question: "9. Vad blir 10 / 5 i Python?",
+        question: "Vad blir 10 / 5 i Python?",
         options: ["2", "2.0", "2.5", "Error"],
         correctIndex: 1
     },
     {
-        question: "10. Vad ger uttrycket: not (True and False)?",
+        question: "Vad ger uttrycket: not (True and False)?",
         options: ["True", "False", "None", "Error"],
         correctIndex: 0
     }

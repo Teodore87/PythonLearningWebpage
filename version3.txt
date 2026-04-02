@@ -1,1 +1,26 @@
-- After user has done a test, the user should be able to see the correct answers and the wrong answers.
+- Börja med att gå igenom den här listan för att se vad vi genomfört och vad som återstår.
+
+- När användaren har gjort sitt prov så borde det visas hur många rätt och fel man fick. Det borde också visas vilka svar som var rätt och fel.
+
+- Startsidan behöver ha möjlighet för inloggning då jag tänkte
+"deploya" sidan till en webbserver.
+
+- När man har loggat in ska man kunna välja vart man vill fortsätta. Det måste finnas en databas.
+Lägg till en admin inloggning till mig när du implementerar inloggningsfunktionen.
+Vi bör kolla olika alternativ gällande databas och inloggningsfunktion. Jag tar gärna emot förslag.
+
+- Lägg till mer övningar och fakta.
+
+- I class="options-list" så kan du radera bokstäverna före svaren. Just nu blir det plottrigt
+och ser ut som en del av svaret.
+
+- Om det finns andra åtgärder som behöver göras för att kunna "deploya" sidan till en webbserver så
+gör det direkt.
+
+- Om det finns något som jag har missat så tveka inte att säga det. Jag är nybörjare på många sätt.
+
+- Lägg till länkar för gratis böcker om programmering i python. (t.ex. https://automatetheboringstuff.com/ 
+och https://allendowney.github.io/ThinkPython/ - har du fler så lägg till dem.)
+
+- Jag har lagt till kommentarer och gjort ett par ändringar i section1.js och section2.js. Jag har också lagt till section3.js.
+Kolla gärna så att allt ser bra ut.
