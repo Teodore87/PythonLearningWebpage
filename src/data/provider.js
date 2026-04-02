@@ -2,6 +2,7 @@
 import { sections } from './sections.js';
 import { section1Content, section1Test } from './content/section1.js';
 import { section2Content, section2Test } from './content/section2.js';
+import { section3Content, section3Test } from './content/section3.js';
 import { section2to15Content, section2to15Test } from './content/section2-15.js';
 
 /**
@@ -12,6 +13,8 @@ export function getLessonContent(sectionId, lessonId) {
         return section1Content[lessonId] || [];
     } else if (sectionId === 2) {
         return section2Content[lessonId] || [];
+    } else if (sectionId === 3) {
+        return section3Content[lessonId] || [];
     } else {
         // Returnera platshållare/skelett-innehåll för sektion 3-15
         return section2to15Content(sectionId, lessonId);
@@ -26,6 +29,8 @@ export function getSectionTest(sectionId) {
         return section1Test;
     } else if (sectionId === 2) {
         return section2Test;
+    } else if (sectionId === 3) {
+        return section3Test;
     } else {
         // Returnera platshållare för sektion 3-15
         return section2to15Test(sectionId);
