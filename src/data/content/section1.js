@@ -186,7 +186,7 @@ export const section1Test = [
     },
     {
         question: "2. Hur kommenterar man kod i Python?",
-        options: ["// Kommentar", "/* Kommentar */", "# Kommentar", "<!-- Kommentar -->"],
+        options: ["// Kommentar", "/* Kommentar */", "# Kommentar", "@ Kommentar"], // <!-- --> Gav ett tomt alternativ
         correctIndex: 2
     },
     {
@@ -211,7 +211,7 @@ export const section1Test = [
     },
     {
         question: "7. Vad kallas textdatatypen i Python?",
-        options: ["Character", "String (str)", "Text", "Word"],
+        options: ["Character (char)", "String (str)", "Text (txt)", "Word (wrd)"], // (str) gav nästan svaret då det stod ensamt
         correctIndex: 1
     },
     {

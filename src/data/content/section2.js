@@ -65,6 +65,7 @@ export const section2Content = {
     3: [
         { type: 'text', content: '<strong>Jämförelseoperatorer</strong> (comparison operators) jämför två värden och returnerar alltid ett booleskt värde: <code>True</code> eller <code>False</code>.' },
         { type: 'text', content: '<ul><li><code>==</code> Lika med (OBS! Inte <code>=</code> som är tilldelning!)</li><li><code>!=</code> Inte lika med</li><li><code>&gt;</code> Större än</li><li><code>&lt;</code> Mindre än</li><li><code>&gt;=</code> Större än eller lika med</li><li><code>&lt;=</code> Mindre än eller lika med</li></ul>' },
+        // Här blir != till ett likamed tecken med ett snedstreck igenom. Kan vara svårt att förstå som nybörjare. Samma med <= och >=, dom ger tecken som blir svåra för nybörjare.
         { type: 'code', content: 'print(5 == 5)    # True\nprint(5 != 3)    # True\nprint(10 > 20)   # False\nprint(3 <= 3)    # True\n\nname = "Anna"\nprint(name == "Anna")   # True\nprint(name == "anna")   # False (skiftlägeskänsligt!)' },
         { type: 'text', content: '<strong>Vanligt misstag:</strong> Att blanda ihop <code>=</code> (tilldelning) och <code>==</code> (jämförelse). Om du skriver <code>if x = 5</code> får du ett felmeddelande. Det ska vara <code>if x == 5</code>.' },
         {
