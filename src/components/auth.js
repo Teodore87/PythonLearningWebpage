@@ -6,6 +6,7 @@
  */
 
 import { t } from '../i18n.js';
+import { supabase } from '../supabase.js';
 
 export default class Auth {
     /**
@@ -25,8 +26,8 @@ export default class Auth {
             
             <form id="login-form" style="display: flex; flex-direction: column; gap: var(--spacing-md);">
                 <div>
-                    <label style="display: block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: var(--spacing-xs);">Användarnamn</label>
-                    <input type="text" id="login-username" required autocomplete="username"
+                    <label style="display: block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: var(--spacing-xs);">E-post</label>
+                    <input type="email" id="login-email" required autocomplete="email"
                         style="width: 100%; padding: 0.8rem; background: var(--bg-surface); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--border-radius-sm); color: var(--text-heading); font-family: var(--font-sans); font-size: 1rem; outline: none; transition: border-color 0.2s;"
                     />
                 </div>
@@ -62,28 +63,21 @@ export default class Auth {
             if (form) {
                 form.addEventListener('submit', async (e) => {
                     e.preventDefault();
-                    const username = document.getElementById('login-username').value.trim();
-                    const password = document.getElementById('login-password').value;
-
                     errorEl.style.display = 'none';
-
+                    // Hantera inloggning via Supabase
                     try {
-                        const res = await fetch('/api/auth/login', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            credentials: 'include',
-                            body: JSON.stringify({ username, password })
+                        const { data, error } = await supabase.auth.signInWithPassword({
+                            email: document.getElementById('login-email').value.trim(),
+                            password: document.getElementById('login-password').value
                         });
-                        const data = await res.json();
-
-                        if (data.success) {
+                        
+                        if (error) throw error;
+                        
+                        if (data.user) {
                             onSuccess(data.user);
-                        } else {
-                            errorEl.textContent = data.error || 'Inloggningen misslyckades.';
-                            errorEl.style.display = 'block';
                         }
                     } catch (err) {
-                        errorEl.textContent = 'Kunde inte kontakta servern.';
+                        errorEl.textContent = err.message || 'Inloggningen misslyckades.';
                         errorEl.style.display = 'block';
                     }
                 });
@@ -115,8 +109,8 @@ export default class Auth {
             
             <form id="register-form" style="display: flex; flex-direction: column; gap: var(--spacing-md);">
                 <div>
-                    <label style="display: block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: var(--spacing-xs);">Användarnamn (minst 3 tecken)</label>
-                    <input type="text" id="register-username" required minlength="3" autocomplete="username"
+                    <label style="display: block; font-size: 0.9rem; color: var(--text-muted); margin-bottom: var(--spacing-xs);">E-post</label>
+                    <input type="email" id="register-email" required autocomplete="email"
                         style="width: 100%; padding: 0.8rem; background: var(--bg-surface); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--border-radius-sm); color: var(--text-heading); font-family: var(--font-sans); font-size: 1rem; outline: none;"
                     />
                 </div>
@@ -147,28 +141,31 @@ export default class Auth {
             if (form) {
                 form.addEventListener('submit', async (e) => {
                     e.preventDefault();
-                    const username = document.getElementById('register-username').value.trim();
-                    const password = document.getElementById('register-password').value;
-
                     errorEl.style.display = 'none';
-
+                    // Hantera registrering via Supabase
                     try {
-                        const res = await fetch('/api/auth/register', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            credentials: 'include',
-                            body: JSON.stringify({ username, password })
-                        });
-                        const data = await res.json();
+                        const email = document.getElementById('register-email').value.trim();
+                        const password = document.getElementById('register-password').value;
 
-                        if (data.success) {
+                        const { data, error } = await supabase.auth.signUp({
+                            email,
+                            password
+                        });
+
+                        if (error) throw error;
+                        
+                        if (data.user) {
+                            // Vi skapar en initial profil lokalt (den triggas automatiskt via SQL i Supabase i skarpt läge, 
+                            // men vi skapar den manuellt här för att säkerställa att den finns direkt)
+                            // Obs: RLS-reglerna i mappen styr skrivningen.
+                            await supabase.from('profiles').insert([
+                                { id: data.user.id }
+                            ]);
+                            
                             onSuccess(data.user);
-                        } else {
-                            errorEl.textContent = data.error || 'Registreringen misslyckades.';
-                            errorEl.style.display = 'block';
                         }
                     } catch (err) {
-                        errorEl.textContent = 'Kunde inte kontakta servern.';
+                        errorEl.textContent = err.message || 'Registreringen misslyckades.';
                         errorEl.style.display = 'block';
                     }
                 });
