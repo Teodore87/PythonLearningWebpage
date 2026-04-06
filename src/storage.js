@@ -1,3 +1,8 @@
+/**
+ * PyLearn - Storage System
+ * 
+ * Hanterar all localStorage-logik för att spara användarens framsteg,
+ * betyg och upplåsta sektioner lokalt i webbläsaren.
  * Kräver ingen backend eller databas (men stöder nu Supabase-integrering).
  */
 
