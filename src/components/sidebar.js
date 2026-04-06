@@ -18,6 +18,9 @@ export default class Sidebar {
         // Lyssna på hash-ändringar för att markera aktiv flik
         window.addEventListener('hashchange', () => this.render());
 
+        // Lyssna på inloggningsändringar
+        window.addEventListener('auth-change', () => this.render());
+
         this.render();
     }
 
@@ -120,10 +123,37 @@ export default class Sidebar {
 
         this.container.appendChild(resourcesGroup);
 
-        // Lägg till språkväxlingsknapp längst ner
-        const langGroup = document.createElement('div');
-        langGroup.style.padding = 'var(--spacing-md) var(--spacing-lg)';
-        langGroup.style.marginTop = 'var(--spacing-sm)';
+        // Lägg till språkväxlingsknapp och eventuell Logga ut-knapp
+        const settingsGroup = document.createElement('div');
+        settingsGroup.style.padding = 'var(--spacing-md) var(--spacing-lg)';
+        settingsGroup.style.marginTop = 'var(--spacing-sm)';
+        settingsGroup.style.display = 'flex';
+        settingsGroup.style.flexDirection = 'column';
+        settingsGroup.style.gap = '8px';
+
+        // Logga ut-knapp (visas endast om inloggad)
+        if (this.storage.currentUser) {
+            const logoutBtn = document.createElement('button');
+            logoutBtn.className = 'lang-switcher-btn'; // Återanvänd stil
+            logoutBtn.innerHTML = `🚪 ${t('nav.logout') || 'Logga ut'}`;
+            logoutBtn.style.width = '100%';
+            logoutBtn.style.padding = '0.5rem';
+            logoutBtn.style.fontSize = '0.85rem';
+            logoutBtn.style.background = 'rgba(247, 118, 142, 0.1)';
+            logoutBtn.style.border = '1px solid rgba(247, 118, 142, 0.2)';
+            logoutBtn.style.borderRadius = 'var(--border-radius-sm)';
+            logoutBtn.style.color = 'var(--accent-error)';
+            logoutBtn.style.cursor = 'pointer';
+
+            logoutBtn.addEventListener('click', async () => {
+                const confirmed = confirm("Är du säker på att du vill logga ut?");
+                if (confirmed) {
+                    await this.storage.logout();
+                    window.location.hash = '#home';
+                }
+            });
+            settingsGroup.appendChild(logoutBtn);
+        }
 
         const langBtn = document.createElement('button');
         langBtn.className = 'lang-switcher-btn';
@@ -154,7 +184,7 @@ export default class Sidebar {
             this.router.handleRoute();
         });
 
-        langGroup.appendChild(langBtn);
-        this.container.appendChild(langGroup);
+        settingsGroup.appendChild(langBtn);
+        this.container.appendChild(settingsGroup);
     }
 }

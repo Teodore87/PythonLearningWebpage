@@ -1,15 +1,13 @@
-/**
- * PyLearn - Storage System
- * 
- * Hanterar all localStorage-logik för att spara användarens framsteg,
- * betyg och upplåsta sektioner lokalt i webbläsaren.
- * Kräver ingen backend eller databas.
+ * Kräver ingen backend eller databas (men stöder nu Supabase-integrering).
  */
+
+import { supabase } from './supabase.js';
 
 export default class Storage {
     constructor() {
         const lsKey = 'pylearn_progress';
         this.storageKey = lsKey;
+        this.currentUser = null;
 
         // Grundstruktur för användardata
         this.defaultState = {
@@ -22,7 +20,64 @@ export default class Storage {
 
         // Initialisera state
         this.state = this._loadData();
+        
+        // Lyssna på Auth-ändringar via Supabase
+        this._initSupabaseAuth();
+    }
+
+    /** Initialisera och lyssna på inloggningsstatus */
+    async _initSupabaseAuth() {
+        const { data: { session } } = await supabase.auth.getSession();
+        this._handleUserChange(session?.user || null);
+
+        supabase.auth.onAuthStateChange((_event, session) => {
+            this._handleUserChange(session?.user || null);
+        });
+    }
+
+    /** Hantera användarstatus och synkronisering */
+    async _handleUserChange(user) {
+        const wasLoggedOut = !this.currentUser && user;
+        this.currentUser = user;
+
+        if (user) {
+            console.log("👤 Inloggad användare:", user.email);
+            await this.syncWithSupabase(wasLoggedOut);
+        } else {
+            console.log("👤 Utloggad / Gästläge");
+            this.state = this._loadData(); // Ladda om lokal data
+        }
+
         this.updateProgressCalculation();
+        // Trigga omrendering av UI genom en global händelse eller liknande
+        window.dispatchEvent(new CustomEvent('auth-change'));
+    }
+
+    /** 
+     * Synkronisera med Supabase.
+     * @param {boolean} migrateIfEmpty Om sant, spara lokal data till Supabase om profilen är tom.
+     */
+    async syncWithSupabase(migrateIfEmpty = false) {
+        if (!this.currentUser) return;
+
+        try {
+            // Hämta profil från Supabase
+            const { data, error } = await supabase
+                .from('profiles')
+                .select('progress_json')
+                .eq('id', this.currentUser.id)
+                .single();
+
+            if (data && data.progress_json) {
+                // VIKTIGT: Vi slår ihop molndata med lokal data om molndata finns
+                this.state = { ...this.defaultState, ...data.progress_json };
+            } else if (migrateIfEmpty) {
+                // Om ingen data finns i molnet, skicka upp nuvarande lokal data
+                await this._saveToSupabase();
+            }
+        } catch (e) {
+            console.error("Kunde inte synkronisera med Supabase", e);
+        }
     }
 
     /** Ladda data från LocalStorage */
@@ -38,15 +93,47 @@ export default class Storage {
         return this.defaultState;
     }
 
-    /** Spara data till LocalStorage */
-    _saveData() {
+    /** Spara data till LocalStorage och Supabase */
+    async _saveData() {
         try {
+            // Spara alltid lokalt för offline-stöd
             localStorage.setItem(this.storageKey, JSON.stringify(this.state));
+            
+            // Spara i molnet om vi är inloggade
+            if (this.currentUser) {
+                await this._saveToSupabase();
+            }
+
             // Uppdatera UI när vi sparar
             this.updateUI();
         } catch (e) {
-            console.warn("Kunde inte spara till localStorage", e);
+            console.warn("Kunde inte spara data", e);
         }
+    }
+
+    async _saveToSupabase() {
+        if (!this.currentUser) return;
+        
+        try {
+            const { error } = await supabase
+                .from('profiles')
+                .upsert({ 
+                    id: this.currentUser.id, 
+                    progress_json: this.state,
+                    updated_at: new Date()
+                });
+            
+            if (error) throw error;
+        } catch (e) {
+            console.warn("Kunde inte spara till Supabase", e);
+        }
+    }
+
+    /** Logga ut */
+    async logout() {
+        await supabase.auth.signOut();
+        // Rensa även lokal data om man vill starta helt rent (valfritt, här behåller vi guest-progress för nästa gång)
+        // localStorage.removeItem(this.storageKey);
     }
 
     /** 

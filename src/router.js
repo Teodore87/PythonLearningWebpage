@@ -1,6 +1,7 @@
 import LessonRenderer from './components/lesson.js';
 import SectionTest from './components/sectionTest.js';
 import ResourcesView from './components/resourcesView.js';
+import Auth from './components/auth.js';
 import { getSectionMetadata, getLessonMetadata, getLessonContent, getSectionTest } from './data/provider.js';
 import { t } from './i18n.js';
 
@@ -20,6 +21,13 @@ export default class Router {
 
     // Lyssna på när URL:ens hash ändras (när användaren klickar på länkar eller backar i webbläsaren)
     window.addEventListener('hashchange', () => this.handleRoute());
+
+    // Lyssna på inloggningsändringar för att uppdatera vyn
+    window.addEventListener('auth-change', () => {
+      if (window.location.hash === '#home' || !window.location.hash) {
+        this.renderHome();
+      }
+    });
 
     // Kör hanteraren direkt vid start för att visa rätt sida
     this.handleRoute();
@@ -75,23 +83,77 @@ export default class Router {
   // --- RENDERING METODER ---
 
   renderHome() {
-    this.contentArea.innerHTML = `
-      <div class="lesson-card" style="text-align: center; padding: var(--spacing-xl);">
-        <h1 style="color: var(--accent-primary); font-size: 3.5rem; margin-bottom: 0;">${t('home.title')}</h1>
-        <h2 style="font-weight: 300; font-size: 1.5rem; color: var(--text-muted); margin-bottom: var(--spacing-xl);">${t('home.subtitle')}</h2>
-        <p style="margin: 0 auto var(--spacing-xl) auto; max-width: 600px;">
-          ${t('home.description')}
-        </p>
-        <div style="display: flex; justify-content: center; gap: var(--spacing-md); flex-wrap: wrap;">
-          <a href="#section/1" class="btn-primary" style="padding: 1.2rem 2.5rem; border-radius: 8px; font-weight: bold; font-size: 1.2rem; box-shadow: 0 10px 25px rgba(122, 162, 247, 0.4);">
-            ${t('home.startBtn')}
-          </a>
-          <a href="#resources" class="option-btn" style="display: inline-block; width: auto; padding: 1.2rem 2.5rem; border-radius: 8px; font-size: 1.1rem; text-align: center;">
-            📚 ${t('resources.title')}
-          </a>
+    const user = this.storage.currentUser;
+    this.contentArea.innerHTML = '';
+
+    const homeContainer = document.createElement('div');
+    
+    if (user) {
+      // Inloggat läge
+      homeContainer.innerHTML = `
+        <div class="lesson-card" style="text-align: center; padding: var(--spacing-xl); animation: fadeIn 0.5s ease;">
+          <h1 style="color: var(--accent-primary); font-size: 3rem; margin-bottom: 0;">Välkommen tillbaka!</h1>
+          <p style="color: var(--text-muted); font-size: 1.2rem; margin-bottom: var(--spacing-xl);">Inloggad som: <strong>${user.email}</strong></p>
+          
+          <div style="background: rgba(255,255,255,0.03); border-radius: var(--border-radius); padding: var(--spacing-lg); margin-bottom: var(--spacing-xl); text-align: left; max-width: 600px; margin-left: auto; margin-right: auto;">
+            <h3 style="color: var(--accent-secondary); margin-bottom: var(--spacing-sm);">Dina framsteg är säkrade ☁️</h3>
+            <p style="font-size: 0.95rem;">Du kan nu fortsätta din resa på vilken enhet som helst. Alla dina klarade lektioner och provresultat synkroniseras automatiskt till molnet.</p>
+          </div>
+
+          <div style="display: flex; justify-content: center; gap: var(--spacing-md); flex-wrap: wrap;">
+            <a href="#section/1" class="btn-primary" style="padding: 1rem 2rem; border-radius: 8px; font-weight: bold; font-size: 1.1rem;">
+              ${this.storage.state.totalProgress > 0 ? 'Fortsätt Lärandet' : t('home.startBtn')}
+            </a>
+            <a href="#resources" class="option-btn" style="display: inline-block; width: auto; padding: 1rem 2rem; border-radius: 8px;">
+              📚 ${t('resources.title')}
+            </a>
+          </div>
         </div>
-      </div>
-    `;
+      `;
+    } else {
+      // Gästläge / Inloggningsvy
+      homeContainer.innerHTML = `
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-xl); align-items: start;">
+          <div class="lesson-card" style="padding: var(--spacing-xl); border: none; background: transparent;">
+            <h1 style="color: var(--accent-primary); font-size: 3.5rem; margin-bottom: 0;">${t('home.title')}</h1>
+            <h2 style="font-weight: 300; font-size: 1.5rem; color: var(--text-muted); margin-bottom: var(--spacing-lg);">${t('home.subtitle')}</h2>
+            
+            <div style="margin-bottom: var(--spacing-xl);">
+              <h3 style="color: var(--accent-secondary); margin-bottom: var(--spacing-sm);">Varför skapa ett konto?</h3>
+              <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px;">
+                <li style="display: flex; align-items: center; gap: 10px;">✅ <strong>Spara framsteg:</strong> Tappa aldrig bort var du är i kursen.</li>
+                <li style="display: flex; align-items: center; gap: 10px;">✅ <strong>Flera enheter:</strong> Lär dig på mobilen, plattan eller datorn.</li>
+                <li style="display: flex; align-items: center; gap: 10px;">✅ <strong>Diplom:</strong> Få tillgång till dina certifikat när du är klar.</li>
+              </ul>
+            </div>
+
+            <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">
+              Börja din resa idag och lär dig Python på ett strukturerat och interaktivt sätt. Kontot är helt gratis och skapas på några sekunder.
+            </p>
+          </div>
+          
+          <div id="auth-container"></div>
+        </div>
+      `;
+      
+      this.contentArea.appendChild(homeContainer);
+      const authTarget = document.getElementById('auth-container');
+      
+      const showLogin = () => {
+        authTarget.innerHTML = '';
+        authTarget.appendChild(Auth.renderLogin(() => {}, showRegister));
+      };
+      
+      const showRegister = () => {
+        authTarget.innerHTML = '';
+        authTarget.appendChild(Auth.renderRegister(() => {}, showLogin));
+      };
+      
+      showLogin();
+      return; // Vi har redan gjort appendChild så vi vill inte köra raden nedan
+    }
+
+    this.contentArea.appendChild(homeContainer);
   }
 
   renderLocked(sectionId) {

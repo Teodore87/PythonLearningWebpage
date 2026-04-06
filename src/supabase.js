@@ -11,11 +11,6 @@
 const SUPABASE_URL = 'https://osjnjpwpewhxcacauogj.supabase.co'; 
 const SUPABASE_ANON_KEY = 'sb_publishable_GbbXEBPLfEot7324WSetPQ_oYNq7NaI';
 
-// Kontrollera om uppgifterna är fyllda (viktigt när vi kör skarpt)
-if (SUPABASE_URL === 'https://osjnjpwpewhxcacauogj.supabase.co') {
-    console.warn("⚠️ Supabase: URL saknas! Lägg till din Supabase URL i src/supabase.js.");
-}
-
 // Skapa Supabase-klienten (funktionen finns globalt tack vare CDN:et i index.html)
 const { createClient } = window.supabase;
 export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);

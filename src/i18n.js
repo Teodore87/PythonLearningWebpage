@@ -15,6 +15,7 @@ const translations = {
         'nav.section': 'Sektion',
         'nav.sectionTest': '🎯 Sektionsprov',
         'nav.resources': '📚 Resurser',
+        'nav.logout': '🚪 Logga ut',
 
         // Home
         'home.title': '🐍 PyLearn',
@@ -110,6 +111,7 @@ const translations = {
         'nav.section': 'Section',
         'nav.sectionTest': '🎯 Section Test',
         'nav.resources': '📚 Resources',
+        'nav.logout': '🚪 Logout',
 
         // Home
         'home.title': '🐍 PyLearn',
